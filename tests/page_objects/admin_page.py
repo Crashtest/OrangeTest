@@ -95,7 +95,6 @@ class AdminPage:
         dropdown_element.click()
         option = self.driver.find_element(By.XPATH, f"//*[contains(text(), 'ESS')]")
         option.click()
-        time.sleep(1)
 
     def select_status_enabled(self):
         dropdown = self.driver.find_element(*self.status_dropdown)
@@ -111,7 +110,7 @@ class AdminPage:
 
     def enter_employee_name(self, name):
         first_name = name.split(" ")[0]
-        self.driver.find_element(*self.employee_name_input).send_keys(first_name)
+        self.driver.find_element(*self.employee_name_input).send_keys(name)
         time.sleep(3)
         option = self.driver.find_element(By.XPATH, f"//div[contains(@class, '.orangehrm-card-container') and //*[starts-with(text(), '{first_name}')]")
         option.click()
