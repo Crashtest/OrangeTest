@@ -1,6 +1,4 @@
 import sqlite3
-import time
-
 import pytest
 import requests
 
