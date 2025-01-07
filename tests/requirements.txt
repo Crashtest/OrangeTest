@@ -1,3 +1,6 @@
 selenium
 pytest
 requests
+faker
+dotenv
+dataclasses

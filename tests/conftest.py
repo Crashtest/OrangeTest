@@ -1,11 +1,9 @@
-import pytest
-from selenium import webdriver
-from selenium.common import TimeoutException
-from selenium.webdriver.common.by import By
 import os
+
+import pytest
 from dotenv import load_dotenv
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from selenium import webdriver
+from selenium.webdriver.common.by import By
 
 from tests.models.users import User
 

@@ -34,9 +34,10 @@ class AdminPage:
                               "#app > div.oxd-layout.orangehrm-upgrade-layout > div.oxd-layout-container > div.oxd-layout-context > div > div.oxd-table-filter > div.oxd-table-filter-area > form > div.oxd-form-actions > button.oxd-button.oxd-button--medium.oxd-button--secondary.orangehrm-left-space")
         self.search_results = (
         By.CSS_SELECTOR, "//*[@id='app']/div[1]/div[2]/div[2]/div/div[2]/div[3]/div/div[2]/div[1]/div")
-        self.reset_button = (By.ID, "resetBtn")
-        self.delete_checkbox = (By.NAME, "chkSelectRow[]")
-        self.delete_button = (By.ID, "btnDelete")
+        self.records_found_count = (By.XPATH, "//div[contains(@class, 'oxd-text oxd-text--span') and text()='Records Found']")
+        self.reset_button = (By.XPATH, "//div[contains(@class, 'oxd-text oxd-text--span') and text()='Reset']")
+        self.delete_checkbox = (By.CSS_SELECTOR, "oxd-icon bi-check oxd-checkbox-input-icon")
+        self.delete_button = (By.XPATH, "//div[contains(@class, 'oxd-icon bi-check oxd-checkbox-input-icon') and text()='Delete Selected']")
         self.confirm_delete_button = (
         By.CSS_SELECTOR, "oxd-button oxd-button--medium oxd-button--label-danger orangehrm-button-margin")
         self.add_user_dialog = (By.CSS_SELECTOR, "h6.orangehrm-main-title")
@@ -59,6 +60,12 @@ class AdminPage:
             return True
         except TimeoutException:
             return False
+
+    def count_records(self):
+        return self.driver.find_element(*self.records_found_count).text
+
+    def click_reset_button(self):
+        self.driver.find_element(*self.reset_button).click()
 
     def get_employee_name(self):
         return self.driver.find_element(*self.employee_name).text
@@ -131,7 +138,8 @@ class AdminPage:
     def reset_search(self):
         self.driver.find_element(*self.reset_button).click()
 
-    def delete_user(self):
+    def delete_user(self, username):
+        self.search_user(username)
         self.driver.find_element(*self.delete_checkbox).click()
         self.driver.find_element(*self.delete_button).click()
         self.driver.find_element(*self.confirm_delete_button).click()

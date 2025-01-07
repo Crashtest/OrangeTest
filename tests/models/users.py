@@ -1,4 +1,4 @@
-from dataclasses import dataclass, make_dataclass, field
+from dataclasses import dataclass, field
 from faker import Faker as Fake
 
 @dataclass
@@ -7,7 +7,7 @@ class User:
     status: str
     password: str = field(default_factory=Fake().password)
     username: str = field(default_factory=Fake().user_name)
-    employee_name: str = "Dragan Gale Petrovski"
+    employee_name: str = "Shiva Kumar Gupta"
 
     def __post_init__(self):
         if not self.username:
