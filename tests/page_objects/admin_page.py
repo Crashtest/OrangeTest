@@ -111,9 +111,16 @@ class AdminPage:
     def enter_employee_name(self, name):
         first_name = name.split(" ")[0]
         self.driver.find_element(*self.employee_name_input).send_keys(name)
-        time.sleep(3)
-        option = self.driver.find_element(By.XPATH, f"//div[contains(@class, '.orangehrm-card-container') and //*[starts-with(text(), '{first_name}')]")
-        option.click()
+        try:
+            WebDriverWait(self.driver, 10).until(
+                EC.visibility_of_element_located((By.XPATH,
+                                                  f"//div[contains(@class, 'orangehrm-card-container') and //*[starts-with(text(), '{first_name}')]"))
+            )
+            option = self.driver.find_element(By.XPATH,
+                                              f"//div[contains(@class, 'orangehrm-card-container') and //*[starts-with(text(), '{first_name}')]")
+            option.click()
+        except TimeoutException:
+            raise Exception(f"Employee name '{first_name}' not found in the suggestions.")
 
     def enter_username(self, username):
         self.driver.find_element(*self.username_input).send_keys(username)

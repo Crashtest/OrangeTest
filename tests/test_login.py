@@ -9,14 +9,6 @@ from utils.global_values import USERS_URL, BASE_URL
 
 class TestAdminPage:
 
-    def test_this(self, global_values):
-        print("\r\r")
-        print("Employee Name, ", global_values["test_user_1"].employee_name)
-        print("password, ", global_values["test_user_1"].password)
-        print("username, ", global_values["test_user_1"].username)
-        print("role, ", global_values["test_user_1"].role)
-        print("status, ", global_values["test_user_1"].status)
-
     def test_add_admin_user(self, driver, login, global_values):
         admin_page = AdminPage(driver)
         driver.get(USERS_URL)
@@ -47,7 +39,6 @@ class TestAdminPage:
         print(search_results)
         # Add assertions to validate user addition
 
-
     def test_search_and_reset(driver, login, global_values):
         admin_page = AdminPage(driver)
         driver.get(USERS_URL)
@@ -56,9 +47,8 @@ class TestAdminPage:
         admin_page.click_reset_button()
         records_found_after_reset = admin_page.records_found_count()
         assert records_found != records_found_after_reset, "Records found should not be equal after reset"
+
     # Add assertions to validate search results
-
-
 
     def test_delete_user(driver, login, global_values):
         admin_page = AdminPage(driver)
@@ -86,5 +76,3 @@ class TestAdminPage:
 
         # Assert that the JSON returned matches the page results
         assert response_json == page_results, "API response does not match the page results"
-
-
